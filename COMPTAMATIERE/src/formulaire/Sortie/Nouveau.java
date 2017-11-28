@@ -815,7 +815,7 @@ public class Nouveau extends javax.swing.JDialog {
             else
             codeBureau.setText("");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,ex.getMessage());
+            JOptionPane.showMessageDialog(this,"1-:"+ex.getMessage());
         }
 
     }//GEN-LAST:event_cmbServiceActionPerformed
@@ -1010,9 +1010,9 @@ public class Nouveau extends javax.swing.JDialog {
                     if(reponse==JOptionPane.YES_OPTION)
                     sortie.printReport(idSortie);
                 }catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(this, ex.getMessage());
+                    JOptionPane.showMessageDialog(this, "2-"+ex.getMessage());
                 }catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, ex.getMessage());
+                    JOptionPane.showMessageDialog(this,"3-"+ ex.getMessage());
                 }
 
             }
@@ -1083,19 +1083,20 @@ public class Nouveau extends javax.swing.JDialog {
              tableArticle.getColumn("Pu").setMaxWidth(95);
         try {
             // alBu.clear();
-            alBu=b.getComboELement("select idbureau,libbur from bureau where idservice="+codeService.getText(), cmbBureau);
+            if(!codeService.getText().isEmpty())     
+            alBu=b.getComboELement("select idbureau,libbur from bureau where idservice="+codeService.getText(),cmbBureau);
             if(cmbBureau.getSelectedIndex()!=-1)
             codeBureau.setText(alBu.get(cmbBureau.getSelectedIndex()).toString());
             else
             codeBureau.setText("");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,ex.getMessage());
+            JOptionPane.showMessageDialog(this,"5-"+ex.getMessage());
         }
                 
                 //desactivation des tab
                  tabBondesortie.setEnabledAt(1,false);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
+            JOptionPane.showMessageDialog(this,"4-"+ ex.getMessage());
         }
            
     }//GEN-LAST:event_formComponentShown
