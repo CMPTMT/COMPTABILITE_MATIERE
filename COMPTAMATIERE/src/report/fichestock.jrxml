@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="67d9a16a-3f3c-49e3-8510-2232e9a8b9f3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="libinstitution" class="java.lang.String"/>
+	<parameter name="pays" class="java.lang.String"/>
+	<parameter name="direction" class="java.lang.String"/>
+	<parameter name="service" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT idoperation, dateoperation,article.libarticle, idbonEntree, qteentree, natureuniteEntree, idbonsortie, qteSortie, natureuniteSortie,pusortie, observation, puentree, pustock, qtestock,
+  CASE 
+    WHEN idbonEntree IS NULL 
+    THEN (SELECT libbur FROM bureau, sortie where idbonsortie=sortie.idsortie and     bureau.idbureau=sortie.idbureau )
+else (SELECT RAISONSOCIAL FROM fournisseur,bon where idbonentree=bon.idbon and bon.idfournisseur=fournisseur.idfournisseur )
+End as source
+FROM livrejournal,article where livrejournal.idarticle=article.idarticle]]>
+	</queryString>
+	<field name="idoperation" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dateoperation" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="libarticle" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idbonEntree" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qteentree" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="natureuniteEntree" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idbonsortie" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qteSortie" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="natureuniteSortie" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pusortie" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="observation" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="puentree" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pustock" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtestock" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="source" class="java.lang.String"/>
+	<variable name="totalSortie" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{qteSortie}*$F{pusortie}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="184" splitType="Stretch">
+			<textField>
+				<reportElement x="380" y="69" width="332" height="34" forecolor="#000000" uuid="f769c56c-656b-4d02-bc41-d3bd3fa694b3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="24" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{libarticle}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="315" y="13" width="396" height="51" uuid="6687c257-d2e4-42c0-9c54-7571e507d911"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Double"/>
+					<bottomPen lineWidth="0.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Double"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="24" isBold="false"/>
+				</textElement>
+				<text><![CDATA[FICHE DE STOCK]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="9" y="13" width="292" height="156" isPrintWhenDetailOverflows="true" uuid="30f1adba-66a3-4d23-a4e0-e733e8a2b45f"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pays}
++
+"\n********************\n"
++
+$P{direction}
++
+"\n********************\n"
++
+$P{service}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="315" y="69" width="55" height="34" uuid="567e9da0-2e3a-4220-9677-57987f3f3ccc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="24" isBold="false"/>
+				</textElement>
+				<text><![CDATA[DE :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" x="380" y="-96" width="92" height="18" isPrintWhenDetailOverflows="true" uuid="8f3e67e3-25c2-4e19-8607-3ecf34354bb6"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idbonsortie}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="58" y="4" width="163" height="59" forecolor="#000000" uuid="04eefae3-9881-40fc-85cb-c0c51c4c0fa5"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reference Entree/ Sortie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="221" y="26" width="58" height="37" forecolor="#000000" uuid="130ecae4-bd8b-4766-be78-8fdfa2f244c4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qte entree]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="279" y="26" width="60" height="37" forecolor="#000000" uuid="4ec1dab0-7e01-43c5-9f14-467c0624870f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="408" y="26" width="64" height="37" forecolor="#000000" uuid="e5c6d0a7-d6ce-4b18-8e79-553692e6b7b2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qte sortie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="472" y="26" width="59" height="37" forecolor="#000000" uuid="f0a4dd01-7177-41fd-83da-86844d026233"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PU sortie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="339" y="26" width="69" height="37" forecolor="#000000" uuid="cca39fc2-3c73-4cf1-92c7-0ea300973678"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant entree]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="531" y="26" width="63" height="37" forecolor="#000000" uuid="e66c7393-66cb-415c-aea6-157ebe963620"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant Sortie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="221" y="4" width="187" height="22" forecolor="#000000" uuid="d16126b9-ec54-43fe-8458-ef4c64748be6"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ENTREE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="408" y="4" width="186" height="22" forecolor="#000000" uuid="f0a3bf46-14bf-4dee-912e-0171fbe2e34f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SORTIE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="594" y="26" width="56" height="37" uuid="f4ff467b-9dee-4291-b00b-3b3c3024b8d9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qté Stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="650" y="26" width="61" height="37" uuid="4aae085d-23a5-45d8-836d-e4ec5f95468e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[  PU      Stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="712" y="26" width="90" height="37" uuid="a6f9dd8c-df3f-4687-b958-15226fa035bd"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant Stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="594" y="4" width="208" height="22" forecolor="#000000" uuid="fd611e37-ef49-4df8-9e92-02c660eb8482"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STOCK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="4" width="58" height="59" forecolor="#000000" uuid="2f9bb300-b84b-48ee-b8d7-ca4669f49c1e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="802" height="18" uuid="fe0105c6-d7e1-448b-b64f-6031038277e7"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" x="221" y="0" width="58" height="18" isPrintWhenDetailOverflows="true" uuid="a5354e40-cd37-43dc-8ee2-9be1e63bb164"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{qteentree}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" x="408" y="0" width="64" height="18" isPrintWhenDetailOverflows="true" uuid="5d797e0e-300f-4d7e-89a4-7477882e7720"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{qteSortie}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" x="472" y="0" width="59" height="18" isPrintWhenDetailOverflows="true" uuid="e41c41bd-3c75-4c23-ac35-c6a7b55b16af"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{pusortie}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" stretchType="RelativeToTallestObject" x="594" y="0" width="56" height="18" isPrintWhenDetailOverflows="true" uuid="b3f3a5eb-c131-4af0-a2e8-8aa4bd458e7f"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{qtestock}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" x="531" y="0" width="63" height="18" isPrintWhenDetailOverflows="true" uuid="3865ca85-41da-46b0-9194-c373b055d218"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{pusortie}*$F{qteSortie}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="279" y="0" width="60" height="18" uuid="f74cd8de-0229-40c9-8fe6-459c0b441b34"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{puentree}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="339" y="0" width="69" height="18" uuid="9bde1a29-44b4-414d-8c1e-2a1747519322"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{qteentree}*$F{puentree}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="58" height="18" isPrintWhenDetailOverflows="true" uuid="b1733fc1-864f-458f-973e-5671bf32aeb3"/>
+					<box>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dateoperation}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" x="102" y="0" width="119" height="18" isPrintWhenDetailOverflows="true" uuid="01449b4e-48c7-4c1b-a373-e4c08c5289cf"/>
+					<box>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{source})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" x="58" y="0" width="55" height="18" isPrintWhenDetailOverflows="true" uuid="bc198043-9d65-4def-990b-6fab6b71e868"/>
+					<box>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{idbonsortie}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField>
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="711" y="0" width="91" height="18" isPrintWhenDetailOverflows="true" uuid="8f641804-a383-4bcc-b5d2-500d4ac75e00"/>
+				<box leftPadding="0" rightPadding="0">
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pustock}*$F{qtestock}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="650" y="0" width="61" height="18" isPrintWhenDetailOverflows="true" uuid="7b4f84b7-a310-43e0-87b0-8950c0543561"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pustock}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" x="58" y="0" width="55" height="18" isPrintWhenDetailOverflows="true" uuid="b9007d2d-590a-4b8d-9235-d687336ad326"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idbonEntree}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="43" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="44" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="746" y="26" width="40" height="16" uuid="09c7d739-83a9-44ef-9661-05e57f890933"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="26" width="113" height="16" uuid="c5c67475-0b42-4a85-936c-366e0fa58bf0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[SYGCOMAT @2017]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="650" y="26" width="80" height="16" uuid="ceac5e4a-6062-45ed-85ca-bc3dd47ef8bb"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="436" y="26" width="171" height="16" uuid="2c132fbf-d2fa-4038-9320-3333000baa94"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="359" y="26" width="49" height="16" uuid="d0fbe79a-1657-4e00-b9ad-ab958f81774d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Edité le]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="15" width="802" height="1" uuid="8ab9dc58-7fbd-4ca0-b374-38b748cb5a20"/>
+			</line>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="50"/>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
