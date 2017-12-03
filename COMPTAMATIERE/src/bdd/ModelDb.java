@@ -12,9 +12,11 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -53,6 +55,14 @@ public class ModelDb{
           return true;  
         }
     
+    public String formatageMontant(Object montant){
+         NumberFormat nf=NumberFormat.getInstance(Locale.FRENCH);
+         return nf.format(montant);
+    }
+    public String parseMontantFomatToString(String montantString) throws ParseException{
+         NumberFormat nf=NumberFormat.getInstance(Locale.FRENCH);       
+         return nf.parse(montantString).toString();
+    }
     
     public void viderJtable(JTable jt){
        ((DefaultTableModel) jt.getModel()).setRowCount(0);

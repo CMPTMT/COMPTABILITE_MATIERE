@@ -3,21 +3,16 @@
  * and open the template in the editor.
  */
 package formulaire.bon;
-import formulaire.article.NouveauPourBon;
 import comptamatiere.BON;
-import comptamatiere.REPORT;
-import java.awt.Color;
-import java.awt.Font;
+import formulaire.article.NouveauPourBon;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  *
@@ -1367,7 +1362,11 @@ public class Nouveau extends javax.swing.JDialog {
         NumFactPro.setText(numProformat.getText());
         Objet.setText(txtObjet.getText());
         motif.setText(txtMotif.getText());
-        MontantFac.setText(txtMontantBon.getText());
+        try {
+            MontantFac.setText(b.parseMontantFomatToString(txtMontantBon.getText()));
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this,"zone 3 "+ex.getMessage());
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
     private float calcMontant(String qte,String pu){
         float result=0;
@@ -1398,7 +1397,7 @@ public class Nouveau extends javax.swing.JDialog {
 
     private void txtQteCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtQteCaretUpdate
  if(!txtPu.getText().equals("")) {
-            txtMontantCal.setText(String.valueOf(calcMontant(txtQte.getText(),txtPu.getText())));
+            txtMontantCal.setText(b.formatageMontant((int)calcMontant(txtQte.getText(),txtPu.getText())));
         }
     }//GEN-LAST:event_txtQteCaretUpdate
 
@@ -1408,7 +1407,7 @@ public class Nouveau extends javax.swing.JDialog {
 
     private void txtQteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQteFocusLost
         if(!txtPu.getText().equals("")) {
-            txtMontantCal.setText(String.valueOf(calcMontant(txtQte.getText(),txtPu.getText())));
+            txtMontantCal.setText(b.formatageMontant((int)calcMontant(txtQte.getText(),txtPu.getText())));
         }
     }//GEN-LAST:event_txtQteFocusLost
 
@@ -1426,7 +1425,7 @@ public class Nouveau extends javax.swing.JDialog {
 
     private void txtPuCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPuCaretUpdate
  if(!txtPu.getText().equals("")) {
-            txtMontantCal.setText(String.valueOf(calcMontant(txtQte.getText(),txtPu.getText())));
+            txtMontantCal.setText(b.formatageMontant((int)calcMontant(txtQte.getText(),txtPu.getText())));
         }
     }//GEN-LAST:event_txtPuCaretUpdate
 
@@ -1436,7 +1435,7 @@ public class Nouveau extends javax.swing.JDialog {
 
     private void txtPuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPuFocusLost
         if(!(txtQte.getText()=="")) {
-            txtMontantCal.setText(String.valueOf(calcMontant(txtQte.getText(),txtPu.getText())));
+            txtMontantCal.setText(b.formatageMontant((int)calcMontant(txtQte.getText(),txtPu.getText())));
         }
     }//GEN-LAST:event_txtPuFocusLost
 
@@ -1467,21 +1466,24 @@ public class Nouveau extends javax.swing.JDialog {
             else {
                 puTva=Double.parseDouble(txtPu.getText());
             }
-            model.addRow(new Object[]{txtCode.getText(),txtArticle.getText(),txtQte.getText(),String.valueOf(puTva),txtMontantCal.getText(),codeMagasin.getText(),tva});
+            try {
+                model.addRow(new Object[]{txtCode.getText(),txtArticle.getText(),txtQte.getText(),String.valueOf(puTva),b.parseMontantFomatToString(txtMontantCal.getText()),codeMagasin.getText(),tva});          
             tableDetail.setModel(model);
-            //NumberFormat formatter=null;
-           // formatter=java.text.NumberFormat.getInstance(java.util.Locale.FRENCH);
-            //formatter=new DecimalFormat("##,###.##");
-            //txtMontantBon.setText(formatter.format(String.valueOf(Double.parseDouble("0"+txtMontantBon.getText())+Double.parseDouble(txtMontantCal.getText()))).toString());
-            txtMontantBon.setText(String.valueOf(Double.parseDouble("0"+txtMontantBon.getText())+Double.parseDouble(txtMontantCal.getText())));
+          
+            txtMontantBon.setText(b.formatageMontant(Double.parseDouble(b.parseMontantFomatToString("0"+txtMontantBon.getText()))+Double.parseDouble(b.parseMontantFomatToString(txtMontantCal.getText()))));
             //vider les champs
             txtQte.setText(""); txtPu.setText(""); txtArticle.setText("");txtCode.setText("");txtMontantCal.setText("");
+             } catch (ParseException ex) {
+              JOptionPane.showMessageDialog(this,ex.getMessage());
+            }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        txtMontantBon.setText(String.valueOf(Double.parseDouble(txtMontantBon.getText())-Double.parseDouble(tableDetail.getValueAt(tableDetail.getSelectedRow(),b.getColumnByName(tableDetail,"MontantTTC")).toString())));
-        ((DefaultTableModel) tableDetail.getModel()).removeRow(tableDetail.getSelectedRow());
+        try {
+            txtMontantBon.setText(b.formatageMontant(Double.parseDouble(b.parseMontantFomatToString(txtMontantBon.getText()))-Double.parseDouble(tableDetail.getValueAt(tableDetail.getSelectedRow(),b.getColumnByName(tableDetail,"MontantTTC")).toString())));
+            ((DefaultTableModel) tableDetail.getModel()).removeRow(tableDetail.getSelectedRow());
+        }catch(Exception ex){}
       //  model.removeRow(WIDTH);
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -1498,10 +1500,11 @@ public class Nouveau extends javax.swing.JDialog {
         if(idBon.isEmpty()){JOptionPane.showMessageDialog(this, "Enregitrer d\'abord le bon");}
         else
         {
-            tabControl.setSelectedIndex(tabControl.getSelectedIndex()+1);
-            tableReception.setModel(model);
-            txtMontantBonReception.setText(txtMontantBon.getText());
-            NumB1.setText(txtNbon.getText());
+                tabControl.setSelectedIndex(tabControl.getSelectedIndex()+1);
+                tableReception.setModel(model);
+                txtMontantBonReception.setText(txtMontantBon.getText());
+                NumB1.setText(txtNbon.getText());
+           
         }
     }//GEN-LAST:event_btnReceptionActionPerformed
 
@@ -1511,7 +1514,7 @@ public class Nouveau extends javax.swing.JDialog {
         if(reponse==JOptionPane.YES_OPTION){
             try {
                 String valeur[]={codeB.getText(),codeF.getText(),cmbTypeBon.getSelectedItem().toString(),txtNbon.getText(),b.getDateChoisie(txtDate),
-                    numProformat.getText(), txtChapitre.getText(),txtAtitre.getText(),txtObjet.getText(),txtMotif.getText(),txtMontantBon.getText()};
+                    numProformat.getText(), txtChapitre.getText(),txtAtitre.getText(),txtObjet.getText(),txtMotif.getText(),b.parseMontantFomatToString(txtMontantBon.getText())};
                 int i=b.Insertion("bon(IDBUDGET, idFOURNISSEUR, TYPEBON, NBON, DATEBON, NUMPROFORMA, CHAPITRE, ATITRE, OBJET, MOTIF, MONTANT)",valeur);
                 JOptionPane.showMessageDialog(this, i+" bon engistré");
                 idBon=b.getOneResult("select max(idbon) from bon");
@@ -1534,7 +1537,7 @@ public class Nouveau extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this,k +" Article du bon enregistré");
                 btnEnreg.setEnabled(false);
                 
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this,ex.getMessage());
             }
         }
@@ -1591,23 +1594,6 @@ public class Nouveau extends javax.swing.JDialog {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
   try { 
        txtObjet.setText("Materiel en service ou approvisionnement en Magasin");
-      // txtObjet.setpl
-      // txtObjet.seti
-         //tableArticle.setColumnIdentifiers(new String[]{"num","Article","Qte","PU","Montant"});
-        //tableArticle.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        /*fixer la largeur de la première colonne à 200 pixels
-         */
-       
-        /**
-         * fixer la largeur de la troisième colonne à 25 pixels
-         */
-        //tableArticle.getColumn(0).setHeaderValue("Mon titre à la place de A");
-        //col = tableArticle.getColumnModel().getColumn(2);
-        //col.setPreferredWidth(2000);
-       //  tableArticle.getTableHeader().setBackground(Color.RED);
-        //TableColumn col = tableArticle.getColumnModel().getColumn(0);
-        //col.setPreferredWidth(20);
-        //select idARTICLE, IDCATEGORIE, LIBARTICLE As Article, STOCKACTU as Qte from article
        tableArticle.setModel(b.getDefaulTableModel("select idARTICLE as Code, IDCATEGORIE, LIBARTICLE As Article,STOCKACTU As Stock from article"));
       // tableArticle.getColumnModel().getColumn(1).setPreferredWidth(0);
         alM=b.getComboELement("select idMagasin,libMagasin from MAGASIN order by libMagasin",cmbMgasin);

@@ -882,7 +882,7 @@ public class Nouveau extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this,(Integer.parseInt(StockA.getText())),"Comptabilté Matiere",3);
         }else{
             int Montant = (Integer.parseInt(txtQte.getText()) * Integer.parseInt(txtPu.getText()));
-            txtMontant.setText(String.valueOf(Montant));
+            txtMontant.setText(sortie.formatageMontant(Montant));
         }
     }//GEN-LAST:event_txtQteFocusLost
 
@@ -890,7 +890,7 @@ public class Nouveau extends javax.swing.JDialog {
         // TODO add your handling code here:
 
         int Montant = (Integer.parseInt(txtQte.getText()) * Integer.parseInt(txtPu.getText()));
-        txtMontant.setText(String.valueOf(Montant));
+        txtMontant.setText(sortie.formatageMontant(Montant));
     }//GEN-LAST:event_txtQteInputMethodTextChanged
 
     private void AjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterActionPerformed
