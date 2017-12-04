@@ -108,7 +108,7 @@ public class Modification2 extends javax.swing.JDialog {
         jLabel12.setText("Type");
 
         typefournisseur.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        typefournisseur.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FOURNISSEUR", "DONATEUR" }));
+        typefournisseur.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FOURNISSEUR", "DONATEUR", "PRESTATAIRE" }));
         typefournisseur.setPreferredSize(new java.awt.Dimension(28, 23));
         typefournisseur.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
