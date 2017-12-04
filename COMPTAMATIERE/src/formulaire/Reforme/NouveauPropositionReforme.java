@@ -2,9 +2,8 @@
 package formulaire.Reforme;
 
 import comptamatiere.AMORTISSEMENT;
-import comptamatiere.REFORME;
 import comptamatiere.IMMOBILISATIONMATERIELS;
-import control.Controle;
+import comptamatiere.REFORME;
 import java.awt.Color;
 import java.awt.Component;
 import java.sql.SQLException;
@@ -567,7 +566,7 @@ public class NouveauPropositionReforme extends javax.swing.JDialog {
       try{
           if((datepropoRef.getDate()).before(a.addYear(dateMs.getDate(),dureevie))){
               //  JOptionPane.showMessageDialog(this,a.getNombreJour(dateMs.getDate(),dateRef.getDate()));
-                 txtPrixresi.setText(a.getValeurBienN(dureevie,a.getNombreJour(dateMs.getDate(),datepropoRef.getDate()),Float.valueOf(txtMontantacqui.getText())));
+                 txtPrixresi.setText(a.formatageMontant(a.getValeurBienN(dureevie,a.getNombreJour(dateMs.getDate(),datepropoRef.getDate()),Float.valueOf(a.parseMontantFomatToString(txtMontantacqui.getText())))));
             }
               
             else
@@ -580,7 +579,7 @@ public class NouveauPropositionReforme extends javax.swing.JDialog {
             idimmo=tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),s.getColumnByName(tableMaterielService,"idimmobilisationmateriel")).toString();
             txtArticle.setText(tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),s.getColumnByName(tableMaterielService,"article")).toString());   
             txtBur.setText(tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),s.getColumnByName(tableMaterielService,"bureau")).toString());
-            txtMontantacqui.setText(tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),s.getColumnByName(tableMaterielService,"puacq")).toString()); 
+            txtMontantacqui.setText(a.formatageMontant(tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),s.getColumnByName(tableMaterielService,"puacq")).toString())); 
         try {
             r.setAfficherDate(dateMs, tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),s.getColumnByName(tableMaterielService,"dms")).toString());
         } catch (ParseException ex) {
@@ -645,7 +644,7 @@ public class NouveauPropositionReforme extends javax.swing.JDialog {
             if(reponse==JOptionPane.YES_OPTION){
                 try {
                     String champ[]={"prixresiduel","dateproporef","situationmateriel"};
-                     String valeur[]={txtPrixresi.getText(),r.getDateChoisie(datepropoRef),"enreforme"};
+                     String valeur[]={a.parseMontantFomatToString(txtPrixresi.getText()),r.getDateChoisie(datepropoRef),"enreforme"};
                     int i=r.updateTable("immobilisationmateriel",champ,valeur," where idimmobilisationmateriel="+idimmo);
                     JOptionPane.showMessageDialog(this, i+" réforme proposée");
                     if(i==1){
@@ -659,7 +658,7 @@ public class NouveauPropositionReforme extends javax.swing.JDialog {
                         txtPrixresi.setText(null);
 
                     }
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this,ex.getMessage());
                 }
 

@@ -750,7 +750,7 @@ public class Nouveau extends javax.swing.JDialog {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Long.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
@@ -1362,11 +1362,8 @@ public class Nouveau extends javax.swing.JDialog {
         NumFactPro.setText(numProformat.getText());
         Objet.setText(txtObjet.getText());
         motif.setText(txtMotif.getText());
-        try {
-            MontantFac.setText(b.parseMontantFomatToString(txtMontantBon.getText()));
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this,"zone 3 "+ex.getMessage());
-        }
+        MontantFac.setText(txtMontantBon.getText()+" FCFA");
+       
     }//GEN-LAST:event_jButton4ActionPerformed
     private float calcMontant(String qte,String pu){
         float result=0;

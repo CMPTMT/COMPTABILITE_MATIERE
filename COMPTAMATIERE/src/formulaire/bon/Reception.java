@@ -228,7 +228,7 @@ public class Reception extends javax.swing.JFrame{
                 .addGap(0, 0, 0)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
@@ -367,7 +367,7 @@ public class Reception extends javax.swing.JFrame{
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
                 .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         tabControl.addTab("Informations de la facture", jPanel2);
@@ -453,7 +453,7 @@ public class Reception extends javax.swing.JFrame{
         try {
             idBon=b.getTabValSel(tableBon,"idbon");
             montantBon=b.getTabValSel(tableBon, "montant");
-            txtMontantBonReception.setText(montantBon);
+            txtMontantBonReception.setText(b.formatageMontant(montantBon));
             b.setRemplirJtable(tableDetailBon, "select iddetailbon,detailbon.idarticle,libarticle,detailbon.qte,detailbon.pu,detailbon.idmagasin,detailbon.montantttc from detailbon,article where detailbon.idarticle=article.idarticle and idbon="+idBon);
 
         } catch (SQLException ex) {
@@ -468,7 +468,7 @@ public class Reception extends javax.swing.JFrame{
             fournisseur.setText(b.getTabValSel(tableBon,"RAISONSOCIAL"));
             NumB.setText(b.getTabValSel(tableBon,"NBON"));
             montantBon=b.getTabValSel(tableBon, "montant");
-            txtMontantBonReception.setText(montantBon);
+            txtMontantBonReception.setText(b.formatageMontant(montantBon));
         tabControl.setSelectedIndex(tabControl.getSelectedIndex()+1);
     }//GEN-LAST:event_jButton9ActionPerformed
 

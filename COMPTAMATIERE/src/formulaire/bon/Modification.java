@@ -7,9 +7,8 @@ package formulaire.bon;
 import comptamatiere.BON;
 import comptamatiere.DETAILBON;
 import formulaire.article.NouveauPourBon;
-import java.awt.Color;
-import java.awt.Font;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -255,9 +254,7 @@ public class Modification extends javax.swing.JDialog {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(codeF, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(codeB, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(codeB, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -397,11 +394,11 @@ public class Modification extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Code article", "Libelle", "QTE", "PU", "MontantTTC", "Magasin", "TVA"
+                "code article", "Libelle", "QTE", "PU", "MontantTTC", "Magasin", "TVA"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Long.class, java.lang.String.class, java.lang.Integer.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
@@ -1068,11 +1065,12 @@ public class Modification extends javax.swing.JDialog {
         else return 0;
     }    private void afficheMontantTva(){
      if(ckboxTva.getModel().isSelected()) {
-         txtMontantBon.setText(String.valueOf(Integer.parseInt(txtMontantCal.getText())*0.18+Integer.parseInt(txtMontantCal.getText())));
+            try {
+                txtMontantBon.setText(b.formatageMontant(Integer.parseInt(b.parseMontantFomatToString(txtMontantCal.getText()))*0.18+Integer.parseInt(b.parseMontantFomatToString(txtMontantCal.getText()))));
+            } catch (ParseException ex) {
+               JOptionPane.showMessageDialog(this,"section 4 "+ex.getMessage());
+            }
      }      
-    /* else {
-         txtMontantBon.setText(txtMontantCal.getText());
-     }*/
     }
      
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -1098,7 +1096,7 @@ public class Modification extends javax.swing.JDialog {
 
                 String champ[]={"IDBUDGET", "idFOURNISSEUR", "TYPEBON", "NBON", "DATEBON", "NUMPROFORMA", "CHAPITRE", "ATITRE", "OBJET", "MOTIF", "MONTANT"};
                 String valeur[]={codeB.getText(),codeF.getText(),txtTypeBon.getText(),txtNbon.getText(),b.getDateChoisie(txtDate),
-                    numProformat.getText(), txtChapitre.getText(),txtAtitre.getText(),txtObjet.getText(),txtMotif.getText(),txtMontantBon.getText()};
+                    numProformat.getText(), txtChapitre.getText(),txtAtitre.getText(),txtObjet.getText(),txtMotif.getText(),b.parseMontantFomatToString(txtMontantBon.getText())};
                 int i=b.updateTable("bon",champ,valeur," where idbon="+idBon);
                 JOptionPane.showMessageDialog(this, i+" bon modifié");
                 //
@@ -1130,8 +1128,9 @@ public class Modification extends javax.swing.JDialog {
                 }
               
                 JOptionPane.showMessageDialog(this,k +" Article(s) du bon modifié(s)");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this,"ici 2 "+ex.getMessage());
+            } catch (Exception ex) {
+               //    Logger.getLogger(Modification.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this,"section 7 "+ex.getMessage());
             }
         }
         int reponseO= JOptionPane.showConfirmDialog(this,"Edition de l\'ordre d\'entrée?","confirmation",JOptionPane.YES_NO_OPTION);
@@ -1140,7 +1139,7 @@ public class Modification extends javax.swing.JDialog {
                // JOptionPane.showMessageDialog(this, idBon+" budget "+codeB.getText()+" fournisseur:"+codeF.getText() );
                 b.printReportBon(idBon,codeB.getText(),codeF.getText());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this,ex.getMessage());
+                JOptionPane.showMessageDialog(this,"section 8"+ex.getMessage());
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -1176,7 +1175,7 @@ public class Modification extends javax.swing.JDialog {
            txtChapitre.setText(b.CHAPITRE);
            txtNbon.setText(b.NBON);
            b.setAfficherDate(txtDate,b.DATEBON.toString());
-           txtMontant.setText(String.valueOf(b.MONTANT));
+           txtMontant.setText(b.formatageMontant(b.MONTANT));
            txtMontantBon.setText(txtMontant.getText());
            numProformat.setText(b.NUMPROFORMA);
            txtAtitre.setText(b.ATITRE);
@@ -1186,7 +1185,7 @@ public class Modification extends javax.swing.JDialog {
            model=(DefaultTableModel)tableDetail.getModel();          
            alM=bdeta.getComboELement("select idMagasin,libMagasin from MAGASIN order by libMagasin",cmbMgasinM);
            
-             tableArticle.getColumn("IDCATEGORIE").setMinWidth(0);
+           tableArticle.getColumn("IDCATEGORIE").setMinWidth(0);
        tableArticle.getColumn("IDCATEGORIE").setPreferredWidth(0);
        tableArticle.getColumn("IDCATEGORIE").setMaxWidth(0);
        
@@ -1207,13 +1206,14 @@ public class Modification extends javax.swing.JDialog {
            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
         catch (Exception ex) {
-           JOptionPane.showMessageDialog(this, ex.getMessage());
+            Logger.getLogger(Modification.class.getName()).log(Level.SEVERE, null, ex);
+            //JOptionPane.showMessageDialog(this,"section 9:"+ ex.getMessage());
         }
         
     }//GEN-LAST:event_formComponentShown
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        txtMontantBon.setText(String.valueOf(Double.parseDouble(txtMontantBon.getText())-Double.parseDouble(tableDetail.getValueAt(tableDetail.getSelectedRow(),b.getColumnByName(tableDetail,"MontantTTC")).toString())));
+        txtMontantBon.setText(b.formatageMontant(Double.parseDouble(txtMontantBon.getText())-Double.parseDouble(tableDetail.getValueAt(tableDetail.getSelectedRow(),b.getColumnByName(tableDetail,"MontantTTC")).toString())));
         ((DefaultTableModel) tableDetail.getModel()).removeRow(tableDetail.getSelectedRow());
         //  model.removeRow(WIDTH);
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -1230,20 +1230,25 @@ public class Modification extends javax.swing.JDialog {
         else if (codeMagasin.getText().isEmpty())
             JOptionPane.showMessageDialog(this, "Choisissez le magasin");
         else{
-            double puTva=0;
-            String tva="non";
-            if(ckboxTva.getModel().isSelected()){
-                puTva=Float.parseFloat(txtPu.getText())*0.18+Float.parseFloat(txtPu.getText());
-                tva="oui";
+            try {
+                double puTva=0;
+                String tva="non";
+                if(ckboxTva.getModel().isSelected()){
+                    puTva=Float.parseFloat(txtPu.getText())*0.18+Float.parseFloat(txtPu.getText());
+                    tva="oui";
+                }
+                else {
+                    puTva=Double.parseDouble(txtPu.getText());
+                }
+                
+                model.addRow(new Object[]{txtCode.getText(),txtArticle.getText(),txtQte.getText(),String.valueOf(puTva),b.parseMontantFomatToString(txtMontantCal.getText()),codeMagasin.getText(),tva});
+                tableDetail.setModel(model);
+                txtMontantBon.setText(b.formatageMontant(Double.parseDouble("0"+b.parseMontantFomatToString(txtMontantBon.getText()))+Double.parseDouble(b.parseMontantFomatToString(txtMontantCal.getText()))));
+                //vider les champs
+                txtQte.setText(""); txtPu.setText(""); txtArticle.setText("");txtCode.setText("");txtMontantCal.setText("");
+            } catch (ParseException ex) {
+              JOptionPane.showMessageDialog(this,"section 6:"+ex.getMessage());
             }
-            else {
-                puTva=Double.parseDouble(txtPu.getText());
-            }
-            model.addRow(new Object[]{txtCode.getText(),txtArticle.getText(),txtQte.getText(),String.valueOf(puTva),txtMontantCal.getText(),codeMagasin.getText(),tva});
-            tableDetail.setModel(model);
-            txtMontantBon.setText(String.valueOf(Double.parseDouble("0"+txtMontantBon.getText())+Double.parseDouble(txtMontantCal.getText())));
-            //vider les champs
-            txtQte.setText(""); txtPu.setText(""); txtArticle.setText("");txtCode.setText("");txtMontantCal.setText("");
         }
     }//GEN-LAST:event_jButton11ActionPerformed
 
@@ -1301,7 +1306,7 @@ public class Modification extends javax.swing.JDialog {
 
     private void ckboxTvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckboxTvaActionPerformed
         if(!(txtPu.getText().equals("") && txtQte.getText().equals(""))) {
-            txtMontantCal.setText(String.valueOf(calcMontant(txtQte.getText(),txtPu.getText())));
+            txtMontantCal.setText(b.formatageMontant(calcMontant(txtQte.getText(),txtPu.getText())));
         }
     }//GEN-LAST:event_ckboxTvaActionPerformed
 
@@ -1319,7 +1324,7 @@ public class Modification extends javax.swing.JDialog {
 
     private void txtQteCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtQteCaretUpdate
         if(!txtPu.getText().equals("")) {
-            txtMontantCal.setText(String.valueOf(calcMontant(txtQte.getText(),txtPu.getText())));
+            txtMontantCal.setText(b.formatageMontant(calcMontant(txtQte.getText(),txtPu.getText())));
         }
     }//GEN-LAST:event_txtQteCaretUpdate
 
@@ -1347,7 +1352,7 @@ public class Modification extends javax.swing.JDialog {
 
     private void txtPuCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPuCaretUpdate
         if(!txtPu.getText().equals("")) {
-            txtMontantCal.setText(String.valueOf(calcMontant(txtQte.getText(),txtPu.getText())));
+            txtMontantCal.setText(b.formatageMontant(calcMontant(txtQte.getText(),txtPu.getText())));
         }
     }//GEN-LAST:event_txtPuCaretUpdate
 
@@ -1357,7 +1362,7 @@ public class Modification extends javax.swing.JDialog {
 
     private void txtPuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPuFocusLost
         if(!(txtQte.getText()=="")) {
-            txtMontantCal.setText(String.valueOf(calcMontant(txtQte.getText(),txtPu.getText())));
+            txtMontantCal.setText(b.formatageMontant(calcMontant(txtQte.getText(),txtPu.getText())));
         }
     }//GEN-LAST:event_txtPuFocusLost
 

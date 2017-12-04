@@ -399,25 +399,21 @@ public class Bon extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnModifier1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifier1ActionPerformed
-  
+ 
         int val;
-         val=Integer.parseInt(table.getValueAt(table.getSelectedRow(),7).toString());
-        
+        val=Integer.parseInt(table.getValueAt(table.getSelectedRow(),b.getColumnByName(table,"valide")).toString());        
         if(val==1){
-             JOptionPane.showMessageDialog(this,val+" Ordre d entree deja validé,la modification est impossible");
+             JOptionPane.showMessageDialog(this,val+" Ordre d\'entree deja validé,la modification est impossible");
         }else{
-        Modification m= new Modification(new JFrame(),true);
-            
+        Modification m= new Modification(new JFrame(),true);            
         String bonSelect=table.getValueAt(table.getSelectedRow(),b.getColumnByName(table,"idbon")).toString();
         m.idBon= bonSelect;
         m.setVisible(true); 
-       }
-       
+       }       
     }//GEN-LAST:event_btnModifier1ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-        
+
         try {
              String bonSelect=table.getValueAt(table.getSelectedRow(),b.getColumnByName(table,"idbon")).toString();
             String codeB=b.getOneResult("select idbudget from bon where idbon="+bonSelect);  
@@ -427,9 +423,9 @@ public class Bon extends javax.swing.JDialog {
           JOptionPane.showMessageDialog(this,"Choisissez un bon à imprimer");
        }
         catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
+            JOptionPane.showMessageDialog(this,"section 1"+ ex.getMessage());
         }  catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
+            JOptionPane.showMessageDialog(this,"section 2: "+ ex.getMessage());
          }
     }//GEN-LAST:event_jButton7ActionPerformed
 

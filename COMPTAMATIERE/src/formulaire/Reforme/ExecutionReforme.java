@@ -733,7 +733,7 @@ public class ExecutionReforme extends javax.swing.JDialog {
                      String valeur[]={txtPrixVente.getText(),r.getDateChoisie(dateRef),"reforme",cmbReforme.getSelectedItem().toString()};
                     i=r.updateTable("immobilisationmateriel",champ,valeur," where idimmobilisationmateriel="+idimmo);
                     JOptionPane.showMessageDialog(this, i+" réforme exécutée");
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this,ex.getMessage());
                 }
                 }
@@ -803,7 +803,7 @@ public class ExecutionReforme extends javax.swing.JDialog {
         idimmo=tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),r.getColumnByName(tableMaterielService,"idimmobilisationmateriel")).toString();
         txtArticle.setText(tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),r.getColumnByName(tableMaterielService,"article")).toString());
         txtBur.setText(tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),r.getColumnByName(tableMaterielService,"bureau")).toString());
-        txtMontantacqui.setText(tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),r.getColumnByName(tableMaterielService,"puacq")).toString());
+        txtMontantacqui.setText(r.formatageMontant(tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),r.getColumnByName(tableMaterielService,"puacq")).toString()));
         try {
             r.setAfficherDate(dateMs, tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),r.getColumnByName(tableMaterielService,"dms")).toString());
             r.setAfficherDate(datePropoRef, tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),r.getColumnByName(tableMaterielService,"dateproporef")).toString());
@@ -812,7 +812,7 @@ public class ExecutionReforme extends javax.swing.JDialog {
         }
         dateRef.setDate(new Date());
         txtDurevie.setText(tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),r.getColumnByName(tableMaterielService,"dureevie")).toString());
-        txtPrixresi.setText(tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),r.getColumnByName(tableMaterielService,"prixresiduel")).toString());
+        txtPrixresi.setText(r.formatageMontant(tableMaterielService.getValueAt(tableMaterielService.getSelectedRow(),r.getColumnByName(tableMaterielService,"prixresiduel")).toString()));
     }//GEN-LAST:event_tableMaterielServiceMouseClicked
 
     private void txtComptePrincipalCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtComptePrincipalCaretUpdate

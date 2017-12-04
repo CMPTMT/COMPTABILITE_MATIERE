@@ -1047,7 +1047,7 @@
                         <Column editable="false" title="Libelle" type="java.lang.String"/>
                         <Column editable="false" title="QTE" type="java.lang.Integer"/>
                         <Column editable="false" title="PU" type="java.lang.Integer"/>
-                        <Column editable="false" title="MontantTTC" type="java.lang.Integer"/>
+                        <Column editable="false" title="MontantTTC" type="java.lang.Long"/>
                         <Column editable="false" title="Magasin" type="java.lang.String"/>
                         <Column editable="false" title="TVA" type="java.lang.String"/>
                       </Table>

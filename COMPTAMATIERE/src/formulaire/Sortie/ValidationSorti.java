@@ -203,7 +203,15 @@ public class ValidationSorti extends javax.swing.JDialog {
             new String [] {
                 "Code", "ligne", "Designation", "Qte", "Pu", "Montant", "type"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Long.class, java.lang.Long.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(TableDetail2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
