@@ -35,8 +35,8 @@ public class REPORT extends ModelDb {
                         rs.close();
                         return hm;     
     }
-    //public static String reportPath=System.getProperty("user.dir")+"\\src\\report\\";//pour programmation
-     public static String reportPath=System.getProperty("user.dir")+"\\";//pour deploiement
+    public static String reportPath=System.getProperty("user.dir")+"\\src\\report\\";//pour programmation
+    // public static String reportPath=System.getProperty("user.dir")+"\\";//pour deploiement
     
     public void reportWithJtable(JTable jt,HashMap hm,String reportName) throws JRException{
       /*  JasperReport jas=JasperCompileManager.compileReport(reportPath+"\\"+reportName+".jrxml");

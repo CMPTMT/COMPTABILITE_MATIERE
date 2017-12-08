@@ -20,7 +20,6 @@ import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
@@ -69,7 +68,7 @@ public class ModelDb{
     }
     public int getQteSortiNonValide(int idArticle) throws SQLException{
     return Integer.parseInt("0"+this.getOneResult("select qte_sortie from detailsortie where idarticle="+idArticle+" and idsortie in (select idsortie from sortie where valide=0)"));
-}
+    }
     public void resizeColumnWidth(JTable table) {
         final TableColumnModel columnModel = table.getColumnModel();
         for (int column = 0; column < table.getColumnCount(); column++) {

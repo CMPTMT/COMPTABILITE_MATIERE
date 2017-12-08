@@ -149,7 +149,7 @@ public class Nouveau extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tempus Sans ITC", 1, 14)); // NOI18N
         jLabel12.setText("Type");
 
-        typefournisseur.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FOURNISSEUR", "DONATEUR", "PRESTATAIRE" }));
+        typefournisseur.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FOURNISSEUR", "DONATEUR" }));
         typefournisseur.setPreferredSize(new java.awt.Dimension(28, 23));
         typefournisseur.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {

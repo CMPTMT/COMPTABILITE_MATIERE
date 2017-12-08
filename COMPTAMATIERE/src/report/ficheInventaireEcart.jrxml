@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="581" leftMargin="7" rightMargin="7" topMargin="13" bottomMargin="12" uuid="e08af352-f85b-4668-9b8e-00df26206762">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="101"/>
+	<property name="ireport.y" value="197"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -19,7 +19,9 @@
 	<parameter name="libinstitution" class="java.lang.String"/>
 	<parameter name="direction" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select famille.libfamille,categorie.idcategorie,article.libarticle,detailinventaire.qtetheorique from detailinventaire,article,categorie,compted,comptep,famille where article.idarticle=detailinventaire.idarticle and article.idcategorie=categorie.idcategorie and categorie.idcompteD=compted.idcompted and compted.idcompteP=compteP.idcompteP and compteP.idcomptep=famille.idcomptep]]>
+		<![CDATA[select famille.libfamille,categorie.idcategorie,article.libarticle,detailinventaire.qtetheorique,detailinventaire.qtereelle,
+detailinventaire.avarie,detailinventaire.perime,detailinventaire.sain
+ from detailinventaire,article,categorie,compted,comptep,famille where article.idarticle=detailinventaire.idarticle and article.idcategorie=categorie.idcategorie and categorie.idcompteD=compted.idcompted and compted.idcompteP=compteP.idcompteP and compteP.idcomptep=famille.idcomptep]]>
 	</queryString>
 	<field name="libfamille" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -31,6 +33,18 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="qtetheorique" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qtereelle" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avarie" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="perime" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sain" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<group name="famille" isReprintHeaderOnEachPage="true">
@@ -220,50 +234,50 @@ $P{direction}]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToTallestObject" x="324" y="0" width="39" height="23" isPrintWhenDetailOverflows="true" uuid="2d061fa9-69ad-43ec-9080-361931e8cd58"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sain}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToTallestObject" x="363" y="0" width="39" height="23" isPrintWhenDetailOverflows="true" uuid="279a9070-7d48-427b-8bcd-4cd743196c1b"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{avarie}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToTallestObject" x="402" y="0" width="39" height="23" isPrintWhenDetailOverflows="true" uuid="40eab701-cd11-415f-b018-f5226b562d1b"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{perime}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToTallestObject" x="441" y="0" width="39" height="23" isPrintWhenDetailOverflows="true" uuid="015439c5-9944-4c77-9c9e-66b0f2750165"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{avarie}+$F{perime}+$F{sain}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToTallestObject" x="480" y="0" width="39" height="23" isPrintWhenDetailOverflows="true" uuid="0c5964ee-518c-47f3-bee8-4df053664fb1"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{qtetheorique}-$F{avarie}-$F{perime}-$F{sain}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToTallestObject" x="519" y="0" width="62" height="23" isPrintWhenDetailOverflows="true" uuid="b2834fb3-6096-490a-ab40-f1d396b69506"/>
@@ -275,7 +289,7 @@ $P{direction}]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField isStretchWithOverflow="true" pattern="#,##0">
 				<reportElement stretchType="RelativeToTallestObject" x="277" y="0" width="47" height="23" isPrintWhenDetailOverflows="true" uuid="2e681a6c-4908-4ee4-9e69-924bce377188"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
