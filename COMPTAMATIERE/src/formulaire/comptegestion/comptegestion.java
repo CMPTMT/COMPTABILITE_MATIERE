@@ -77,9 +77,11 @@ public class comptegestion extends javax.swing.JDialog {
             ResultSet rs=null;
             //maj stock des entrées       
             rs=d.getResultSet("select idarticle,sum(qte) as qte from detailbon group by idarticle");
+            
             while(rs.next())
               d.insUpdateDel("update comptegestion set qteentree="+rs.getInt("qte")+" where idarticle="+rs.getInt("idarticle"));
-            rs.close();            
+            rs.close(); 
+         
             //maj stock sortie
              rs=d.getResultSet("select idarticle,sum(qte_sortie) as qte from detailsortie group by idarticle");
             while(rs.next())
