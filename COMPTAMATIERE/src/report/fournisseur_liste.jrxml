@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d36ec75-2f50-432d-9ff2-b3501d1fb453">
 	<property name="ireport.zoom" value="1.210000000000001"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="66"/>
+	<property name="ireport.y" value="31"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -19,60 +19,9 @@
 	<parameter name="direction" class="java.lang.String"/>
 	<parameter name="service" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM entree,bon,fournisseur where entree.idbon=bon.idbon and bon.idfournisseur=fournisseur.idfournisseur]]>
+		<![CDATA[SELECT * FROM fournisseur]]>
 	</queryString>
-	<field name="idENTREE" class="java.lang.Long">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="IDBON" class="java.lang.Long">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="REFFACTURE" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="DATEFACTURE" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="REFBORDEREAU" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="DATEBORD" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="VALIDE" class="java.lang.Boolean">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="IDBUDGET" class="java.lang.Long">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="idFOURNISSEUR" class="java.lang.Long">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="TYPEBON" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="NBON" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="DATEBON" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="NUMPROFORMA" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="CHAPITRE" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ATITRE" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="OBJET" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="MOTIF" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="MONTANT" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="TYPEFOURNISSEUR" class="java.lang.String">
@@ -111,9 +60,6 @@
 	<field name="ACTIVITES" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<variable name="totalmontan" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[$F{MONTANT}]]></variableExpression>
-	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -139,7 +85,7 @@ $P{service}]]></textFieldExpression>
 				<textElement textAlignment="Center">
 					<font size="24" isBold="true"/>
 				</textElement>
-				<text><![CDATA[LISTE DES PRESTATAIRES]]></text>
+				<text><![CDATA[LISTE DES FOURNISSEURS]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -219,21 +165,7 @@ $P{service}]]></textFieldExpression>
 				<text><![CDATA[Téléphone]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="538" y="8" width="117" height="35" forecolor="#000000" uuid="e55dae1d-1b06-46f9-ada1-9a41a596770f"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Adresse]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="655" y="8" width="147" height="35" forecolor="#000000" uuid="2cf7072b-9827-489f-9f9b-e90feeaf0580"/>
+				<reportElement style="Column header" x="655" y="8" width="147" height="34" forecolor="#000000" uuid="2cf7072b-9827-489f-9f9b-e90feeaf0580"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -246,10 +178,24 @@ $P{service}]]></textFieldExpression>
 				</textElement>
 				<text><![CDATA[Secteur d'activité]]></text>
 			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="538" y="8" width="117" height="34" forecolor="#000000" uuid="f889d689-a203-44f0-9244-1d22bb17d7d7"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Adresse]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<frame>
 				<reportElement style="Detail" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="32" height="20" uuid="3e0bc4ec-9663-4fd8-8f55-d10d97dd4122"/>
 				<box>
@@ -280,7 +226,7 @@ $P{service}]]></textFieldExpression>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{REFFACTURE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{RAISONSOCIAL}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="248" y="0" width="138" height="20" uuid="7db18da7-9cc9-493f-af5f-5784ee48d2df"/>
@@ -291,7 +237,7 @@ $P{service}]]></textFieldExpression>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{RAISONSOCIAL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NOMREPRESENTANT}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="386" y="0" width="152" height="20" uuid="5cb7805d-bb9c-403a-a639-b0929f200063"/>
@@ -302,7 +248,7 @@ $P{service}]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{OBJET}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TELEPHONE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="161" y="0" width="87" height="20" uuid="ab71ca67-aea0-4ac6-82c1-bb4e0309a4bc"/>
@@ -313,31 +259,33 @@ $P{service}]]></textFieldExpression>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{DATEBORD}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="538" y="0" width="117" height="20" uuid="420c3eba-50dd-404b-89da-749f036eb0c4"/>
-				<box>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{MONTANT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{IFU}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="655" y="0" width="147" height="20" uuid="2e05a3f9-66fc-4fe0-ab26-f96fefc6c48c"/>
 				<box>
 					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.25"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{MOTIF}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{SECTEURACTIVITE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="538" y="0" width="117" height="20" uuid="0d645ce4-ae54-440c-afee-a224df0b1a05"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ADRESSE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -5,7 +5,7 @@
 package formulaire.Fournisseurs;
 //package formulaire.Fournisseurs;
 import comptamatiere.FOURNISSEUR;
-import control.Controle;
+import comptamatiere.REPORT;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -311,7 +311,7 @@ private void chargement(){
              TableFournisseur.getColumn("RAISON SOCIAL").setPreferredWidth(250);
              TableFournisseur.getColumn("IFU").setPreferredWidth(200);
              TableFournisseur.getColumn("NOM DU REPRESENTANT").setPreferredWidth(230);
-              TableFournisseur.getColumn("TYPEFOURNISSEUR").setPreferredWidth(200);
+             TableFournisseur.getColumn("TYPEFOURNISSEUR").setPreferredWidth(200);
             
             jScrollPane2.setViewportView(TableFournisseur);
         } catch (SQLException ex) {JOptionPane.showMessageDialog(this, ex.getMessage());
@@ -366,17 +366,12 @@ private void chargement(){
     }//GEN-LAST:event_btnModifier1ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        /* String req="SELECT idoperation, dateoperation,article.libarticle,idbonEntree, qteEntree, natureuniteEntree, idbonsortie, qteSortie, natureuniteSortie,"
-        + " pusortie, observation, puentree, pustock, qtestock  CASE " +
-        "    WHEN idbonEntree IS NULL " +
-        " THEN (SELECT libbur FROM bureau, sortie where idbonsortie=sortie.idsortie and     bureau.idbureau=sortie.idbureau )" +
-        "else (SELECT RAISONSOCIAL FROM fournisseur,bon where idbonentree=bon.idbon and bon.idfournisseur=fournisseur.idfournisseur )" +
-        "End as source FROM livrejournal,article where livrejournal.idarticle=article.idarticle and livrejournal.idarticle="+table.getValueAt(table.getSelectedRow(),e.getColumnByName(table, "idarticle")) +" order by idoperation";
+        REPORT r= new REPORT();
         try{
-            e.editionReport("fichestock", req, e.getInstitutionMap());
+            r.editionReport("fournisseur_liste", "select * from fournisseur order by raisonsocial", r.getInstitutionMap());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this,ex.getMessage());
-        }*/
+        }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="581" leftMargin="7" rightMargin="7" topMargin="13" bottomMargin="12" uuid="e08af352-f85b-4668-9b8e-00df26206762">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="101"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -33,7 +33,7 @@
 	<field name="qtetheorique" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<group name="famille">
+	<group name="famille" isReprintHeaderOnEachPage="true">
 		<groupExpression><![CDATA[$F{libfamille}]]></groupExpression>
 		<groupHeader>
 			<band height="50">
@@ -193,8 +193,8 @@ $P{direction}]]></textFieldExpression>
 	</columnHeader>
 	<detail>
 		<band height="23" splitType="Stretch">
-			<textField isBlankWhenNull="true">
-				<reportElement x="48" y="0" width="57" height="23" uuid="833c33a1-31ea-4508-ba9c-c0d0ae664792"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="48" y="0" width="57" height="23" isPrintWhenDetailOverflows="true" uuid="833c33a1-31ea-4508-ba9c-c0d0ae664792"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -202,17 +202,17 @@ $P{direction}]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{idcategorie}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="105" y="0" width="172" height="23" uuid="7de6434d-75b2-47d0-abb9-4b624cecccf3"/>
-				<box>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="105" y="0" width="172" height="23" isPrintWhenDetailOverflows="true" uuid="7de6434d-75b2-47d0-abb9-4b624cecccf3"/>
+				<box leftPadding="2">
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{libarticle}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="48" height="23" uuid="cf1af433-a59f-4ef6-8688-2d00af057042"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="48" height="23" isPrintWhenDetailOverflows="true" uuid="cf1af433-a59f-4ef6-8688-2d00af057042"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -220,8 +220,8 @@ $P{direction}]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="324" y="0" width="39" height="23" uuid="2d061fa9-69ad-43ec-9080-361931e8cd58"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="324" y="0" width="39" height="23" isPrintWhenDetailOverflows="true" uuid="2d061fa9-69ad-43ec-9080-361931e8cd58"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -229,8 +229,8 @@ $P{direction}]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="363" y="0" width="39" height="23" uuid="279a9070-7d48-427b-8bcd-4cd743196c1b"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="363" y="0" width="39" height="23" isPrintWhenDetailOverflows="true" uuid="279a9070-7d48-427b-8bcd-4cd743196c1b"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -238,8 +238,8 @@ $P{direction}]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="402" y="0" width="39" height="23" uuid="40eab701-cd11-415f-b018-f5226b562d1b"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="402" y="0" width="39" height="23" isPrintWhenDetailOverflows="true" uuid="40eab701-cd11-415f-b018-f5226b562d1b"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -247,8 +247,8 @@ $P{direction}]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="441" y="0" width="39" height="23" uuid="015439c5-9944-4c77-9c9e-66b0f2750165"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="441" y="0" width="39" height="23" isPrintWhenDetailOverflows="true" uuid="015439c5-9944-4c77-9c9e-66b0f2750165"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -256,8 +256,8 @@ $P{direction}]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="480" y="0" width="39" height="23" uuid="0c5964ee-518c-47f3-bee8-4df053664fb1"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="480" y="0" width="39" height="23" isPrintWhenDetailOverflows="true" uuid="0c5964ee-518c-47f3-bee8-4df053664fb1"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -265,8 +265,8 @@ $P{direction}]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="519" y="0" width="62" height="23" uuid="b2834fb3-6096-490a-ab40-f1d396b69506"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="519" y="0" width="62" height="23" isPrintWhenDetailOverflows="true" uuid="b2834fb3-6096-490a-ab40-f1d396b69506"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -275,8 +275,8 @@ $P{direction}]]></textFieldExpression>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="277" y="0" width="47" height="23" uuid="2e681a6c-4908-4ee4-9e69-924bce377188"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="277" y="0" width="47" height="23" isPrintWhenDetailOverflows="true" uuid="2e681a6c-4908-4ee4-9e69-924bce377188"/>
 				<box>
 					<leftPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>

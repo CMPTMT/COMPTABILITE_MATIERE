@@ -2,10 +2,7 @@
 package formulaire.Sortie;
 import comptamatiere.DETAILSORTIE;
 import comptamatiere.SORTIE;
-import control.Controle;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -229,10 +226,7 @@ SORTIE sortie = new SORTIE ();
 
         tableSortie.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
@@ -363,7 +357,10 @@ SORTIE sortie = new SORTIE ();
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         try {
             sortie.printReport(tableSortie.getValueAt(tableSortie.getSelectedRow(),sortie.getColumnByName(tableSortie, "idsortie")).toString());
-        } catch (SQLException ex) {
+        }catch(IndexOutOfBoundsException ind){
+            JOptionPane.showMessageDialog(this,"Choisissez le bon à imprimer");
+        }
+        catch (SQLException ex) {
            JOptionPane.showMessageDialog(this,ex.getMessage());
         } catch (Exception ex) {
            JOptionPane.showMessageDialog(this,ex.getMessage());
